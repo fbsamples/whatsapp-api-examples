@@ -13,7 +13,7 @@ This repository is a hub for examples of how developers can use WhatsApp Cloud A
     **Note:** there are two app versions in this subdirectory - one is a [boilerplate code](whatsapp-api-media-messages/boilerplate) for the application, and one is a [complete version](whatsapp-api-media-messages/complete-app) of the app.
 
 4. [whatsapp-api-example-app-js](whatsapp-api-basic-webhook-js) - this subdirectory holds code for a sample app build with Node.js and WhatsApp API.
-5. [whatsapp-api-example-app-python](whatsapp-api-basic-webhook-python) - this subdirectory holds code for a sample app build with Python and WhatsApp API.
+5. [whatsapp-api-example-app-python](whatsapp-api-example-app-python) - this subdirectory holds code for a sample app build with Python and WhatsApp API.
 
 
 ## License
