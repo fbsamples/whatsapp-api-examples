@@ -8,11 +8,11 @@
 var movies = [{
   id: 1,
   title: 'Airborne 404',
-  thumbnail: 'https://cdn.pixabay.com/photo/2014/10/02/06/34/war-469503__480.jpg',
+  thumbnail: 'https://cdn.pixabay.com/photo/2014/10/02/06/34/war-469503__340.jpg',
   license: 'https://pixabay.com/photos/war-soldiers-parachutes-469503/',
   licenseDetails: 'Pixabay License / Free for commercial use / No attribution required',
   time: 'October 23, 2022 - 8:00 PM',
-  venue: 'Electric Cinema'
+  venue: 'Cinema Daily'
 },
 {
   id: 2,
@@ -21,7 +21,7 @@ var movies = [{
   license: 'https://pixabay.com/photos/ship-strom-sea-night-fantasy-red-2202910/',
   licenseDetails: 'Pixabay License / Free for commercial use / No attribution required',
   time: 'October 24, 2022 - 7:30 PM',
-  venue: 'Phoenix Theatre'
+  venue: 'Famous Studios'
 },
 {
   id: 3,
@@ -30,7 +30,7 @@ var movies = [{
   license: 'https://pixabay.com/vectors/illustration-videogame-graphics-1736462/',
   licenseDetails: 'Pixabay License / Free for commercial use / No attribution required',
   time: 'October 24, 2022 - 10:30 PM',
-  venue: 'Prince Charles Cinema'
+  venue: 'FilmStreamNow'
 },
 {
   id: 4,
@@ -39,7 +39,7 @@ var movies = [{
   license: 'https://pixabay.com/photos/doctor-physician-angel-care-3410941/',
   licenseDetails: 'Pixabay License / Free for commercial use / No attribution required',
   time: 'October 25, 2022 - 9:30 PM',
-  venue: 'Curzon Soho'
+  venue: 'Uptown Studio'
 }];
 
 if (exports ) {
