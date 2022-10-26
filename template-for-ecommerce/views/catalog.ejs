@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title><%= title %></title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+   </head>
+   <body>
+      <h1 class="text-center"><%= title %></h1>
+      <form method="POST" action="/catalog">
+        <div class="container">
+          <div class="row">
+              <% products.forEach(function(product,index) { %>
+              <div class="col col-3">
+                <div class="card mb-4 shadow">
+                    <img src="https://cdn.pixabay.com/photo/<%=product.thumbnail%>" class="card-img-top" alt="<%=product.product %>"/>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= product.name %></h5>
+                      <h5 class="card-title">$<%= product.price %></h5>
+                      <p>
+                      <div class="container">
+                          <input type="hidden" name="productId" value="<%=product.id%>"/>
+                          <input type="hidden" name="checked" value="<%=product.checked%>"/>
+                          <input type="hidden" name="price" value="<%= product.price %>"/>
+
+                          <div class="row gx-5">
+                            <button type="button" name="product_<%=product.checked%>" class="btn btn-outline-success <%= product.checked === true ? 'active' : '' %>" 
+                                data-bs-toggle="button" autocomplete="off"
+                                onclick="javascript:toggleProduct('<%=product.id%>')">&#x1F6D2; Add to Cart</button>
+                          </div>
+                      </div>
+                      </p>
+                    </div>
+                </div>
+              </div>
+              <% }) %>
+          </div>
+        </div>
+      </form>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <script src="javascripts/products.js"></script>
+      <script type="text/javascript">
+        function toggleProduct(productId) {
+          const productIndex = parseInt(productId) - 1
+          const checkedEl = $(`[name=checked]:nth(${productIndex})`)
+          const isChecked = !(checkedEl.val() === 'true')
+          checkedEl.val(isChecked)
+
+          const priceEl = $(`[name=price]:nth(${productIndex})`)
+          const price = parseFloat(priceEl.val())
+
+          const totalEl = $('#total')
+          let total = parseFloat(totalEl.val())
+          
+          if (isChecked)
+            total += price
+          else
+            total -= price
+
+          totalEl.val(total);
+
+          const labelTotalEl = $('#labelTotal')
+          labelTotalEl.html('Total: $' + total.toFixed(2))
+        }
+      </script>
+   </body>
+</html>

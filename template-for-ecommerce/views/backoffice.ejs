@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title><%= title %></title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+   </head>
+   <body>
+      <h1 class="text-center"><%= title %></h1>
+      <% orders.forEach(function(order,index) { %>
+      <form method="POST" action="/backoffice">
+      <input type="hidden" name="orderId" value="<%= order.id %>"/>
+      <div class="card mb-4 shadow">
+         <div class="card-body">
+           <div class="container">
+              <div class="row align-items-center">
+                <div class="col col-2">
+                  <span>Order Id</span>
+                  <br/>
+                  <span><h5><%= order.id %></h5></span>
+                  <div>
+                      <div>
+                        <span><b><%= order.customer %></b></span>
+                      </div>                    
+                    <% if (order.items) { %>
+                    <% order.items.forEach(function(item,index) { %>
+                      <div>
+                        <span><%= item.qty %></span>
+                        <span><%= products[item.productId - 1].name %></span>
+                        <span>: $<%= item.qty * products[item.productId - 1].price %></span>
+                      </div>
+                    <% }) %>
+                    <% } %>
+                  </div>
+                </div>
+                <% statuses.forEach(function(status,index) { %>
+                  <div class="col col-1 border-2 border-end text-center">
+                    <span class="" style="width: 50px; word-wrap:break-word;">&nbsp;&nbsp;<%= status %>&nbsp;&nbsp;</span>
+                    <br/>
+                    <% if(order.statusId > index) { %>
+                      <h1 class="text-center">&#x2705;</h1>
+                    <%} else { %>
+                      <h1 class="text-center">&nbsp;</h1>
+                    <% } %>
+                    </div>
+                <% }) %>
+                <div class="col col-2">
+                <% if(order.statusId < 7) { %>
+                  <input type="submit" value="&#x27A1; <%=orderActions[order.statusId - 1]%>" class="btn btn-primary btn-lg btn-block"/>
+                <% } %>
+              </div>                        
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <% }) %>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <script src="javascripts/products.js"></script>
+      <script type="text/javascript">
+        function toggleProduct(productId) {
+          const productIndex = parseInt(productId) - 1
+          const checkedEl = $(`[name=checked]:nth(${productIndex})`)
+          const isChecked = !(checkedEl.val() === 'true')
+          checkedEl.val(isChecked)
+
+          const priceEl = $(`[name=price]:nth(${productIndex})`)
+          const price = parseFloat(priceEl.val())
+
+          const totalEl = $('#total')
+          let total = parseFloat(totalEl.val())
+          
+          if (isChecked)
+            total += price
+          else
+            total -= price
+
+          totalEl.val(total);
+
+          const labelTotalEl = $('#labelTotal')
+          labelTotalEl.html('Total: $' + total.toFixed(2))
+        }
+      </script>
+   </body>
+</html>
