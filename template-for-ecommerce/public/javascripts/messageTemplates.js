@@ -1,7 +1,7 @@
 const messageTemplates = [
   {
     name: 'welcome',
-    category: 'ACCOUNT_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hi, {{1}}! How great to have you here 😃'
@@ -16,7 +16,7 @@ const messageTemplates = [
   },
   {
     name: 'payment_analysis',
-    category: 'PAYMENT_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hello, {{1}}!'
@@ -33,7 +33,7 @@ const messageTemplates = [
   },
   {
     name: 'payment_approved',
-    category: 'PAYMENT_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hello, {{1}}!'
@@ -48,7 +48,7 @@ const messageTemplates = [
   },
   {
     name: 'invoice_available',
-    category: 'PAYMENT_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hello, {{1}}!'
@@ -61,7 +61,7 @@ const messageTemplates = [
   },
   {
     name: 'order_picked_packed',
-    category: 'TRANSPORTATION_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hello, {{1}}!'
@@ -78,7 +78,7 @@ const messageTemplates = [
   },
   {
     name: 'order_in_transit',
-    category: 'TRANSPORTATION_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hello {{1}}, your order {{2}} is already on its way and will be delivered to you on {{3}} :)'
@@ -93,7 +93,7 @@ const messageTemplates = [
   },
   {
     name: 'order_delivered',
-    category: 'TRANSPORTATION_UPDATE',
+    category: 'TRANSACTIONAL',
     components: [{
       type: 'BODY',
       text: 'Hello {{1}}, order {{2}} has been delivered!'
@@ -111,8 +111,7 @@ const messageTemplates = [
     modelFields: [ 'firstName', 'orderNumber', 'deadlineDays' ]
   }
 ]
-  
+
 if (exports) {
   exports.messageTemplates = messageTemplates;
 }
-  

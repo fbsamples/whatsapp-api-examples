@@ -18,7 +18,7 @@ router.post('/', function (req, res, next) {
 
   const templateName = process.env.TEMPLATE_NAME;
 
-  var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_WAID, templateName
+  var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_PHONE_NUMBER, templateName
     , lessonPlan);
 
   sendMessage(data)
@@ -33,6 +33,3 @@ router.post('/', function (req, res, next) {
 });
 
 module.exports = router;
-
-
-
