@@ -16,6 +16,20 @@ async function sendWhatsAppMessage(data) {
   return await axios(config)
 }
 
+async function updateWhatsAppMessage(data) {
+  const config = {
+    method: 'put',
+    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.PHONE_NUMBER_ID}/messages`,
+    headers: {
+      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    data: data
+  };
+
+  return await axios(config)
+}
+
 function getMessageData(recipient, order) {
 
   const messageTemplate = messageTemplates[order.statusId - 1]
@@ -121,6 +135,7 @@ async function createMessageTemplate(template) {
 
 module.exports = {
   sendWhatsAppMessage: sendWhatsAppMessage,
+  updateWhatsAppMessage: updateWhatsAppMessage,
   listTemplates: listTemplates,
   createMessageTemplate: createMessageTemplate,
   getMessageData: getMessageData

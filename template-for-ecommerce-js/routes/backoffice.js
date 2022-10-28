@@ -11,7 +11,7 @@ router.post('/', async function (req, res, next) {
   const order = orders.filter(o => o.id == orderId)[0]
   order.statusId++;
 
-  var data = getMessageData(process.env.RECIPIENT_WAID, order);
+  const data = getMessageData(process.env.RECIPIENT_PHONE_NUMBER, order);
   try {
     const response = await sendWhatsAppMessage(data)
     console.log(response);
