@@ -30,6 +30,14 @@ async function updateWhatsAppMessage(data) {
   return await axios(config)
 }
 
+function createProductsList(product) {
+  return {
+    "id": `${product.id}`,
+    "title": product.name,
+    "description": `$${product.price}`
+  }
+}
+
 function getMessageData(recipient, order) {
 
   const messageTemplate = messageTemplates[order.statusId - 1]
@@ -138,5 +146,6 @@ module.exports = {
   updateWhatsAppMessage: updateWhatsAppMessage,
   listTemplates: listTemplates,
   createMessageTemplate: createMessageTemplate,
-  getMessageData: getMessageData
+  getMessageData: getMessageData,
+  createProductsList: createProductsList
 };

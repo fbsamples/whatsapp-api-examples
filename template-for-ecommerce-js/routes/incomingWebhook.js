@@ -3,17 +3,9 @@ const router = express.Router();
 const { messageStatuses } = require("../public/javascripts/messageStatuses");
 const { interactiveList, interactiveReplyButton } = require("../public/javascripts/interactiveMessages");
 const { products } = require("../public/javascripts/products");
-const { updateWhatsAppMessage, sendWhatsAppMessage } = require("../messageHelper")
+const { createProductsList, updateWhatsAppMessage, sendWhatsAppMessage } = require("../messageHelper")
 
 const verificationToken = process.env.WEBHOOK_VERIFICATION_TOKEN
-
-function createProductsList(product) {
-  return {
-    "id": `${product.id}`,
-    "title": product.name,
-    "description": `$${product.price}`
-  }
-}
 
 async function processMessage(message) {
   const customerPhoneNumber = message.from;
@@ -55,9 +47,9 @@ async function processMessage(message) {
       }
     }
     else if (interactiveType === "list_reply") {
-      const itemId = message.interactive.reply.list_reply.id;
-      const itemTitle = message.interactive.reply.list_reply.title;
-      const itemDescrption = message.interactive.reply.list_reply.description;
+      const itemId = message.interactive.list_reply.id;
+      const itemTitle = message.interactive.list_reply.title;
+      const itemDescrption = message.interactive.list_reply.description;
     }
   }
 }

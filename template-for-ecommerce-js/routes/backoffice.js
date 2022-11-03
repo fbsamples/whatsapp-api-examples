@@ -16,7 +16,7 @@ router.post('/', async function (req, res, next) {
     const response = await sendWhatsAppMessage(data)
     console.log(response);
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
   }
 
   renderBackoffice(res);
