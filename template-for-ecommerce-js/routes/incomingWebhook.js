@@ -4,8 +4,12 @@ const { messageStatuses } = require("../public/javascripts/messageStatuses");
 const { interactiveList, interactiveReplyButton } = require("../public/javascripts/interactiveMessages");
 const { products } = require("../public/javascripts/products");
 const { createProductsList, updateWhatsAppMessage, sendWhatsAppMessage } = require("../messageHelper")
+const XHubSignature = require('x-hub-signature');
 
-const verificationToken = process.env.WEBHOOK_VERIFICATION_TOKEN
+const verificationToken = process.env.WEBHOOK_VERIFICATION_TOKEN;
+const appSecret = process.env.APP_SECRET;
+const xhub = new XHubSignature('SHA256', appSecret);
+
 
 async function processMessage(message) {
   const customerPhoneNumber = message.from;
@@ -55,7 +59,11 @@ async function processMessage(message) {
 }
 
 router.post('/', async function (req, res, next) {
-  if (!req.isXHubValid()) {
+  // Calculate x-hub signature value to check with value in request header
+  const calcXHubSignature = xhub.sign(req.rawBody).toLowerCase();
+
+  if (req.headers['x-hub-signature-256'] != calcXHubSignature)
+  {
     console.log(
       "Warning - request header X-Hub-Signature not present or invalid"
     );
