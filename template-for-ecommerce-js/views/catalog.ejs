@@ -1,3 +1,11 @@
+<!--
+Copyright (c) Meta Platforms, Inc. and affiliates.
+All rights reserved.
+
+This source code is licensed under the license found in the
+LICENSE file in the root directory of this source tree.
+-->
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -24,7 +32,7 @@
                           <input type="hidden" name="price" value="<%= product.price %>"/>
 
                           <div class="row gx-5">
-                            <button type="button" name="product_<%=product.checked%>" class="btn btn-outline-success <%= product.checked === true ? 'active' : '' %>" 
+                            <button type="button" name="product_<%=product.checked%>" class="btn btn-outline-success <%= product.checked === true ? 'active' : '' %>"
                                 data-bs-toggle="button" autocomplete="off"
                                 onclick="javascript:toggleProduct('<%=product.id%>')">&#x1F6D2; Add to Cart</button>
                           </div>
@@ -52,7 +60,7 @@
 
           const totalEl = $('#total')
           let total = parseFloat(totalEl.val())
-          
+
           if (isChecked)
             total += price
           else

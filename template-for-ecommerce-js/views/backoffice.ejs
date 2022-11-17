@@ -1,3 +1,11 @@
+<!--
+Copyright (c) Meta Platforms, Inc. and affiliates.
+All rights reserved.
+
+This source code is licensed under the license found in the
+LICENSE file in the root directory of this source tree.
+-->
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -21,7 +29,7 @@
                   <div>
                       <div>
                         <span><b><%= order.customer %></b></span>
-                      </div>                    
+                      </div>
                     <% if (order.items) { %>
                     <% order.items.forEach(function(item,index) { %>
                       <div>
@@ -48,7 +56,7 @@
                 <% if(order.statusId < 7) { %>
                   <input type="submit" value="&#x27A1; <%=orderActions[order.statusId - 1]%>" class="btn btn-primary btn-lg btn-block"/>
                 <% } %>
-              </div>                        
+              </div>
             </div>
             </div>
           </div>
@@ -70,7 +78,7 @@
 
           const totalEl = $('#total')
           let total = parseFloat(totalEl.val())
-          
+
           if (isChecked)
             total += price
           else

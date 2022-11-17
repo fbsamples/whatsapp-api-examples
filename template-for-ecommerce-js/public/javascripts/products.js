@@ -1,3 +1,10 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates.
+* All rights reserved.
+*
+* This source code is licensed under the license found in the
+* LICENSE file in the root directory of this source tree.
+*/
+
 const products = [
 { id: 1, name: 'assorted berries', thumbnail: '2010/12/13/10/05/berries-2277__340.jpg', price: 2.99 },
 { id: 2, name: 'tomato', thumbnail: '2014/04/10/11/06/tomatoes-320860__340.jpg', price: 1.99 },
