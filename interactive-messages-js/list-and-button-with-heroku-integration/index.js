@@ -5,19 +5,28 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-var bodyParser = require("body-parser");
-var express = require("express");
-var app = express();
-var xhub = require("express-x-hub");
-
+const bodyParser = require("body-parser");
+const express = require("express");
 const axios = require("axios");
-const temporaryAccessToken = "{{temporary_access_token}}";
+const XHubSignature = require('x-hub-signature');
+require('dotenv').config();
+
+const app = express();
+
+const accessToken = process.env.ACCESS_TOKEN;
+const appSecret = process.env.APP_SECRET;
+const apiVersion = process.env.VERSION;
+const recipientNumberId = process.env.PHONE_NUMBER_ID;
+
+const xhub = new XHubSignature('SHA256', appSecret);
 
 app.set("port", process.env.PORT || 5000);
 app.listen(app.get("port"));
 
-app.use(xhub({ algorithm: "sha1", secret: process.env.APP_SECRET }));
-app.use(bodyParser.json());
+// Copy raw body buffer to req["rawBody"] to generate x-hub signature
+app.use(bodyParser.json({
+  verify: function (req, res, buf) { req.rawBody = buf; }
+}));
 
 const listObject = {
   type: "list",
@@ -107,7 +116,7 @@ buttonObject = {
   },
 };
 
-var messageObject = {
+let messageObject = {
   messaging_product: "whatsapp",
   recipient_type: "individual",
   to: "{{recipient_phone_number}}",
@@ -116,7 +125,11 @@ var messageObject = {
 };
 
 app.post("/facebook", function (req, res) {
-  if (!req.isXHubValid()) {
+  // Calculate x-hub signature value to check with value in request header
+  const calcXHubSignature = xhub.sign(req.rawBody).toLowerCase();
+
+  if(req.headers['x-hub-signature-256'] != calcXHubSignature)
+  {
     console.log(
       "Warning - request header X-Hub-Signature not present or invalid"
     );
@@ -145,11 +158,11 @@ function sendListMessage() {
   messageObject.interactive = listObject;
 
   axios.post(
-    "https://graph.facebook.com/v13.0/{{phone_number_id}}/messages",
+    `https://graph.facebook.com/${apiVersion}/${recipientNumberId}/messages`,
     messageObject,
     {
       headers: {
-        Authorization: `Bearer ${temporaryAccessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   );
@@ -166,11 +179,11 @@ function sendReplyButton(reply) {
   messageObject.interactive = buttonObject;
 
   axios.post(
-    "https://graph.facebook.com/v13.0/{{phone_number_id}}/messages",
+    `https://graph.facebook.com/${apiVersion}/${recipientNumberId}/messages`,
     messageObject,
     {
       headers: {
-        Authorization: `Bearer ${temporaryAccessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   );
