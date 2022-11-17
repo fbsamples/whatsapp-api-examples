@@ -6,7 +6,12 @@
 */
 
 const axios = require("axios");
-temporaryAccessToken = "{{temporary_access_token}}";
+require('dotenv').config();
+
+const accessToken = process.env.ACCESS_TOKEN;
+const apiVersion = process.env.VERSION;
+const recipientNumber = process.env.RECIPIENT_PHONE_NUMBER;
+const myNumberId = process.env.PHONE_NUMBER_ID;
 
 listInteractiveObject = {
   type: "list",
@@ -99,18 +104,18 @@ buttonInteractiveObject = {
 messageObject = {
   messaging_product: "whatsapp",
   recipient_type: "individual",
-  to: "{{recipient_phone_number}}",
+  to: `${recipientNumber}`,
   type: "interactive",
   interactive: listInteractiveObject,
 };
 
 axios
   .post(
-    "https://graph.facebook.com/v13.0/{{phone_number_id}}/messages",
-    textMessage,
+    `https://graph.facebook.com/${apiVersion}/${myNumberId}/messages`,
+    messageObject,
     {
       headers: {
-        Authorization: `Bearer ${temporaryAccessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   )

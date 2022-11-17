@@ -16,7 +16,8 @@ const app = express();
 const accessToken = process.env.ACCESS_TOKEN;
 const appSecret = process.env.APP_SECRET;
 const apiVersion = process.env.VERSION;
-const recipientNumberId = process.env.PHONE_NUMBER_ID;
+const recipientNumber = process.env.RECIPIENT_PHONE_NUMBER;
+const myNumberId = process.env.PHONE_NUMBER_ID;
 
 const xhub = new XHubSignature('SHA256', appSecret);
 
@@ -119,12 +120,12 @@ buttonObject = {
 let messageObject = {
   messaging_product: "whatsapp",
   recipient_type: "individual",
-  to: "{{recipient_phone_number}}",
+  to: `${recipientNumber}`,
   type: "interactive",
   interactive: {},
 };
 
-app.post("/facebook", function (req, res) {
+app.post("/incoming", function (req, res) {
   // Calculate x-hub signature value to check with value in request header
   const calcXHubSignature = xhub.sign(req.rawBody).toLowerCase();
 
@@ -158,7 +159,7 @@ function sendListMessage() {
   messageObject.interactive = listObject;
 
   axios.post(
-    `https://graph.facebook.com/${apiVersion}/${recipientNumberId}/messages`,
+    `https://graph.facebook.com/${apiVersion}/${myNumberId}/messages`,
     messageObject,
     {
       headers: {
