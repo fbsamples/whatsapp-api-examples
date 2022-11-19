@@ -180,7 +180,7 @@ function sendReplyButton(reply) {
   messageObject.interactive = buttonInteractiveObject;
 
   axios.post(
-    `https://graph.facebook.com/${apiVersion}/${recipientNumberId}/messages`,
+    `https://graph.facebook.com/${apiVersion}/${myNumberId}/messages`,
     messageObject,
     {
       headers: {
