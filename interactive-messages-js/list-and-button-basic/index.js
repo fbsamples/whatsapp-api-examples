@@ -13,7 +13,7 @@ const apiVersion = process.env.VERSION;
 const recipientNumber = process.env.RECIPIENT_PHONE_NUMBER;
 const myNumberId = process.env.PHONE_NUMBER_ID;
 
-listInteractiveObject = {
+const listInteractiveObject = {
   type: "list",
   header: {
     type: "text",
@@ -62,7 +62,7 @@ listInteractiveObject = {
   },
 };
 
-buttonInteractiveObject = {
+const buttonInteractiveObject = {
   type: "button",
   header: {
     type: "text",
@@ -101,13 +101,26 @@ buttonInteractiveObject = {
   },
 };
 
-messageObject = {
+let messageObject = {
   messaging_product: "whatsapp",
   recipient_type: "individual",
   to: `${recipientNumber}`,
   type: "interactive",
   interactive: listInteractiveObject,
 };
+
+//
+// Uncomment below to send a reply button interactive message.
+// Be sure to comment the messageObject defintion above if you
+// uncomment the lines below.
+//
+// let messageObject = {
+//   messaging_product: "whatsapp",
+//   recipient_type: "individual",
+//   to: `${recipientNumber}`,
+//   type: "interactive",
+//   interactive: buttonInteractiveObject,
+// };
 
 axios
   .post(

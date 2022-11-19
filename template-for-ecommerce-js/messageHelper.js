@@ -9,12 +9,18 @@ const axios = require('axios');
 const { messageTemplates } = require('./public/javascripts/messageTemplates')
 const { products } = require('./public/javascripts/products')
 
+const accessToken = process.env.ACCESS_TOKEN;
+const apiVersion = process.env.VERSION;
+const recipientNumber = process.env.RECIPIENT_PHONE_NUMBER;
+const myNumberId = process.env.PHONE_NUMBER_ID;
+const myBizAcctId = process.env.BUSINESS_ACCOUNT_ID;
+
 async function sendWhatsAppMessage(data) {
   const config = {
     method: 'post',
-    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.PHONE_NUMBER_ID}/messages`,
+    url: `https://graph.facebook.com/${apiVersion}/${myNumberId}/messages`,
     headers: {
-      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     data: data
@@ -26,9 +32,9 @@ async function sendWhatsAppMessage(data) {
 async function updateWhatsAppMessage(data) {
   const config = {
     method: 'put',
-    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.PHONE_NUMBER_ID}/messages`,
+    url: `https://graph.facebook.com/${apiVersion}/${myNumberId}/messages`,
     headers: {
-      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     data: data
@@ -120,9 +126,9 @@ async function listTemplates() {
 
   return await axios({
     method: 'get',
-    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
+    url: `https://graph.facebook.com/${apiVersion}/${myBizAcctId}/message_templates`
       + '?limit=1000'
-      + `&access_token=${process.env.ACCESS_TOKEN}`
+      + `&access_token=${accessToken}`
   })
 }
 
@@ -132,9 +138,9 @@ async function createMessageTemplate(template) {
 
   const config = {
     method: 'post',
-    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`,
+    url: `https://graph.facebook.com/${apiVersion}/${myBizAcctId}/message_templates`,
     headers: {
-      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     data: {

@@ -10,7 +10,7 @@
     "body-parser": "^1.20.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.3",
     "ejs": "~3.1.8",
     "express": "~4.16.1",
     "x-hub-signature": "~2.1.1",

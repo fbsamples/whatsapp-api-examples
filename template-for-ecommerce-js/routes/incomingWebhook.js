@@ -69,7 +69,7 @@ router.post('/', async function (req, res, next) {
   // Calculate x-hub signature value to check with value in request header
   const calcXHubSignature = xhub.sign(req.rawBody).toLowerCase();
 
-  if (req.headers['x-hub-signature-256'] != calcXHubSignature)
+  if(req.headers['x-hub-signature-256'] != calcXHubSignature)
   {
     console.log(
       "Warning - request header X-Hub-Signature not present or invalid"

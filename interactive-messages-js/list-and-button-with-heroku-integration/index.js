@@ -29,7 +29,7 @@ app.use(bodyParser.json({
   verify: function (req, res, buf) { req.rawBody = buf; }
 }));
 
-const listObject = {
+const listInteractiveObject = {
   type: "list",
   header: {
     type: "text",
@@ -78,7 +78,7 @@ const listObject = {
   },
 };
 
-buttonObject = {
+const buttonInteractiveObject = {
   type: "button",
   header: {
     type: "text",
@@ -156,7 +156,7 @@ app.post("/incoming", function (req, res) {
 });
 
 function sendListMessage() {
-  messageObject.interactive = listObject;
+  messageObject.interactive = listInteractiveObject;
 
   axios.post(
     `https://graph.facebook.com/${apiVersion}/${myNumberId}/messages`,
@@ -170,14 +170,14 @@ function sendListMessage() {
 }
 
 function sendReplyButton(reply) {
-  buttonObject.body.text =
+  buttonInteractiveObject.body.text =
     reply.list_reply.id +
     ". " +
     reply.list_reply.title +
     " (" +
     reply.list_reply.description +
     ")";
-  messageObject.interactive = buttonObject;
+  messageObject.interactive = buttonInteractiveObject;
 
   axios.post(
     `https://graph.facebook.com/${apiVersion}/${recipientNumberId}/messages`,
