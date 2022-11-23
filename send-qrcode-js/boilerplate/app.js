@@ -13,13 +13,13 @@ const expressValidator = require('express-validator');
 
 require('dotenv').config();
 
-//import routes 
+//import routes
 const messageTemplateRoutes = require('./routes/qrCode');
 //app
 const app = express();
 
 
-//middleware 
+//middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -30,9 +30,8 @@ app.use(cors());
 app.use('/api',messageTemplateRoutes);
 //routes
 
-const port = 8000
+const port = process.env.LISTENER_PORT || 3000;
 
 app.listen(port,()=> {
     console.log(`Server is running on port ${port}`);
 });
-
