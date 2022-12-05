@@ -10,7 +10,7 @@ var FormData = require('form-data');
 var fs = require('fs');
 
 function sendMessage(data) {
-  var config = {
+  const config = {
     method: 'post',
     url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.PHONE_NUMBER_ID}/messages`,
     headers: {
@@ -78,8 +78,10 @@ function listTemplates() {
   return axios({
     method: 'get',
     url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
-      + `?limit=1000`
-      + `&access_token=${process.env.ACCESS_TOKEN}`
+      + `?limit=1000`,
+    headers: {
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      }
   })
 }
 
@@ -87,35 +89,38 @@ function uploadImage() {
   return axios({
       method: 'post',
       url: `https://graph.facebook.com/${process.env.VERSION}/app/uploads`
-      + `?access_token=${process.env.ACCESS_TOKEN}&file_type=image/png`
-    }).then(function (response) {
+      + `?file_type=image/png`,
+      headers: {
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      }
+    }).then((response) => {
       const uploadSessionId = response.data.id
-      
+
       const filePath = path.join(__dirname, "/public/images/Python.png");
 
-      var data = new FormData();
+      let data = new FormData();
       data.append('messaging_product', 'whatsapp');
       data.append('file', fs.createReadStream(filePath));
-      
-      var config = {
+
+      const config = {
         method: 'post',
         url: `https://graph.facebook.com/${process.env.VERSION}/${uploadSessionId}`,
-        headers: { 
+        headers: {
           'Authorization': `OAuth ${process.env.ACCESS_TOKEN}`,
           'file_offset': 0,
           'Host': 'graph.facebook.com',
           'Connection': 'close',
-          'Content-Type': 'multipart/form-data', 
+          'Content-Type': 'multipart/form-data',
         },
         data : filePath
       };
-      
+
       return axios(config)
     })
 }
 
 function getMediaUrl(mediaId) {
-  var config = {
+  const config = {
     method: 'get',
     url: `https://graph.facebook.com/${process.env.VERSION}/${mediaId}`,
     headers: {
@@ -123,31 +128,31 @@ function getMediaUrl(mediaId) {
       'Content-Type': 'application/json'
     }
   };
-  
+
   return axios(config);
 }
 
 function uploadImageAndCreateMessageTemplate(templateName) {
   return uploadImage()
-  .then(function (response) {
+  .then((response) => {
     const fileHandle = response.data.h;
 
     createMessageTemplate(templateName, fileHandle)
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
-    });    
+    });
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.log(error);
-  });  
+  });
 }
 
 function createMessageTemplate(templateName, fileHandle) {
 
-  var config = {
+  const config = {
     method: 'post',
     url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`,
     headers: {

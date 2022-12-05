@@ -4,19 +4,19 @@
 * This source code is licensed under the license found in the
 * LICENSE file in the root directory of this source tree.
 */
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var createLessonPlanTemplateRouter = require('./routes/createLessonPlanTemplate');
-var coursesRouter = require('./routes/courses');
-var sendLessonPlanRouter = require('./routes/sendLessonPlan');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const createLessonPlanTemplateRouter = require('./routes/createLessonPlanTemplate');
+const coursesRouter = require('./routes/courses');
+const sendLessonPlanRouter = require('./routes/sendLessonPlan');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
