@@ -5,14 +5,18 @@
 * LICENSE file in the root directory of this source tree.
 */
 const formidable = require("formidable");
-// const axios = require("axios");
-const request = require("request");
+const axios = require("axios");
 const fs = require("fs");
 
 const accessToken = process.env.ACCESS_TOKEN;
 const apiVersion = process.env.VERSION;
 const recipientNumber = process.env.RECIPIENT_PHONE_NUMBER;
 const myPhoneNumberId = process.env.PHONE_NUMBER_ID;
+const commonHeader =
+{
+  Authorization: `Bearer ${accessToken}`,
+  'Content-Type': 'application/json'
+};
 
 exports.createQRCode = async (req, res) => {
   const { message, type } = req.body;
@@ -21,97 +25,140 @@ exports.createQRCode = async (req, res) => {
     console.log(req.body);
 
     return res.status(400).json({
-      error: "Required Fields: Message, Type",
+      error: "Required fields: Message, Type",
     });
   }
-  request.post(
-    {
-      url: `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls?prefilled_message=${message}&generate_qr_image=${type}&access_token=${process.env.META_AUTH_TOKEN}`,
-    },
-    function (err, resp, body) {
-      if (err) {
-        console.log("Error!");
-      } else {
-        res.json(JSON.parse(body));
-      }
-    }
-  );
+
+  const qrdlObject =
+  {
+    "prefilled_message" : message,
+    "generate_qr_image" : type
+  }
+
+  const config =
+  {
+    "method" : "post",
+    "url" : `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls`,
+    "headers" : commonHeader,
+    "data" : qrdlObject
+  };
+
+  try
+  {
+    let qr_post_res = await axios( config );
+    res.json( qr_post_res.data );
+  }
+  catch( err )
+  {
+    console.log( "Error creating QR!" );
+    console.log( err );
+  }
 };
 
 exports.fetchQRCodes = async (req, res) => {
-  request.get(
-    {
-      url: `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls?access_token=${process.env.META_AUTH_TOKEN}`,
-    },
-    function (err, resp, body) {
-      if (err) {
-        console.log("Error!");
-      } else {
-        res.json(JSON.parse(body));
-      }
-    }
-  );
+  const config =
+  {
+    "method" : "get",
+    "url" : `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls`,
+    "headers" : commonHeader
+  };
+
+  try
+  {
+    let qr_post_res = await axios( config );
+    res.json( qr_post_res.data );
+  }
+  catch( err )
+  {
+    console.log( "Error fetching QR!" );
+    console.log( err );
+  }
 };
 
 exports.updateQRCode = async (req, res) => {
   const { message, id } = req.body;
   if (!message || !id) {
     return res.status(400).json({
-      error: "Required Fields: Message and ID",
+      error: "Required fields: Message and Id",
     });
   }
-  request.post(
-    {
-      url: `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls/${id}?prefilled_message=${message}&access_token=${process.env.META_AUTH_TOKEN}`,
-    },
-    function (err, resp, body) {
-      if (err) {
-        console.log("Error!");
-      } else {
-        res.json(JSON.parse(body));
-      }
-    }
-  );
+
+  const qrdlUpdateObject =
+  {
+    "prefilled_message" : message,
+  }
+
+  const config =
+  {
+    "method" : "post",
+    "url" : `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls/${id}`,
+    "headers" : commonHeader,
+    "data" : qrdlUpdateObject
+  };
+
+  try
+  {
+    let qr_post_res = await axios( config );
+    res.json( qr_post_res.data );
+  }
+  catch( err )
+  {
+    console.log( "Error updating QR message!" );
+    console.log( err );
+  }
 };
 
 exports.sendMessage = async (req, res) => {
   const { to, type } = req.body;
   if (!to || !type) {
     return res.status(400).json({
-      error: "Required Fields: to and type",
+      error: "Required fields: to and type",
     });
   }
-  request.post(
-    {
-      url: `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/messages`,
-      headers: {
-        Authorization: `Bearer ${process.env.META_AUTH_TOKEN}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(req.body),
-    },
-    function (err, resp, body) {
-      if (err) {
-        console.log("Error!");
-      } else {
-        res.json(JSON.parse(body));
-      }
-    }
-  );
+
+  const config =
+  {
+    "method" : "post",
+    "url" : `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/messages`,
+    "headers" : commonHeader,
+    "data" : JSON.stringify(req.body)
+  };
+
+  try
+  {
+    let send_message_res = await axios( config );
+    res.json( send_message_res.data );
+  }
+  catch( err )
+  {
+    console.log( "Error sending message!" );
+    console.log( err );
+  }
 };
 
 exports.deleteQRCode = async (req, res) => {
   const { id } = req.query;
-  request.delete(
-    {
-      url: `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls/${id}?access_token=${process.env.META_AUTH_TOKEN}`,
-    },
-    function (err, resp, body) {
-      if (err) {
-        console.log("Error!");
-      } else {
-        res.json(JSON.parse(body));
-      }
-    }
-  );
+  if (!id) {
+    return res.status(400).json({
+      error: "Required fields: id",
+    });
+  }
+
+  const config =
+  {
+    "method" : "delete",
+    "url" : `https://graph.facebook.com/${apiVersion}/${myPhoneNumberId}/message_qrdls/${id}`,
+    "headers" : commonHeader
+  };
+
+  try
+  {
+    let delete_qr_res = await axios( config );
+    res.json( delete_qr_res.data );
+  }
+  catch( err )
+  {
+    console.log( "Error deleting QR code!" );
+    console.log( err );
+  }
 };

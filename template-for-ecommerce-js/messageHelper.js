@@ -127,8 +127,11 @@ async function listTemplates() {
   return await axios({
     method: 'get',
     url: `https://graph.facebook.com/${apiVersion}/${myBizAcctId}/message_templates`
-      + '?limit=1000'
-      + `&access_token=${accessToken}`
+      + '?limit=1000'`,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    }
   })
 }
 

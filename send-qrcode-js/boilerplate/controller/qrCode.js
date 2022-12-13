@@ -9,12 +9,22 @@ const formidable = require("formidable");
 const request = require("request");
 const fs = require("fs");
 
-exports.createQRCode = async (req, res) => {};
+exports.createQRCode = async (req, res) => {
+    // Insert missing function logic here
+};
 
-exports.fetchQRCodes = async (req, res) => {};
+exports.fetchQRCodes = async (req, res) => {
+    // Insert missing function logic here
+};
 
-exports.updateQRCode = async (req, res) => {};
+exports.updateQRCode = async (req, res) => {
+    // Insert missing function logic here
+};
 
-exports.sendMessage = async (req, res) => {};
+exports.sendMessage = async (req, res) => {
+    // Insert missing function logic here
+};
 
-exports.deleteQRCode = async (req, res) => {};
+exports.deleteQRCode = async (req, res) => {
+    // Insert missing function logic here
+};

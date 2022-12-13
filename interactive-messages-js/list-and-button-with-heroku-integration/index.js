@@ -118,11 +118,11 @@ const buttonInteractiveObject = {
 };
 
 let messageObject = {
-  messaging_product: "whatsapp",
-  recipient_type: "individual",
-  to: `${recipientNumber}`,
-  type: "interactive",
-  interactive: {},
+  "messaging_product": "whatsapp",
+  "recipient_type": "individual",
+  "to": `${recipientNumber}`,
+  "type": "interactive",
+  "interactive": {},
 };
 
 app.post("/incoming", function (req, res) {
