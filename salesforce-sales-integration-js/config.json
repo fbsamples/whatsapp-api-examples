@@ -1,0 +1,10 @@
+{
+  "ACCESS_TOKEN ": "YOUR_WHATSAPP_TEMPORARY_ACCESS_TOKEN",
+  "PHONE_NUMBER_ID ": "YOUR_PHONENUMBER_ID",
+  "verify_token ": "MY_SECRET_TOKEN",
+  "domain": "<YOUR_LIGHTNING_API_URL>",
+  "consumer_key": "<YOUR_CONSUMER_KEY>",
+  "consumer_secret": "<YOUR_CONSUMER_SECRET>",
+  "username": "<YOUR_USERNAME@COMPANY.COM>",
+  "password": "<YOUR_PASSWORD>"
+}
