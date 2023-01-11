@@ -1,4 +1,4 @@
-# Contributing to share_to_reels_android
+# Contributing to WhatsApp API examples
 Note that this project is a hub of sample apps. We're happy to accept bug fixes, but if you'd like to add new features beyond the scope of this example, we encourage you to fork the code.
 
 We want to make contributing to this project as easy and transparent as

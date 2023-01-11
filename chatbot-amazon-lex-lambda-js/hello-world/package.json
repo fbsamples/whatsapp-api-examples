@@ -1,0 +1,27 @@
+{
+  "name": "hello_world",
+  "version": "1.0.0",
+  "description": "Sample Lambda for WhatsApp and Amazon Lex chatbot integration",
+  "main": "app.js",
+  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
+  "author": "Rashed Talukder",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-lex-runtime-v2": "^3.226.0",
+    "aws-serverless-express": "3.4.0",
+    "axios": "^1.2.1",
+    "body-parser": "1.20.1",
+    "express": "4.18.2",
+    "express-x-hub": "1.0.4",
+    "uuid": "9.0.0"
+  },
+  "scripts": {
+    "test": "mocha tests/unit/",
+    "integ-test": "mocha tests/integration/"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1281.0",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
+  }
+}
