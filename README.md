@@ -17,7 +17,7 @@ This repository is a hub for examples of how developers can use Cloud API, hoste
 5. [send-messages-ecommerce-app-java](send-messages-ecommerce-app-java) - a sample app build with Java and WhatsApp Business Platform.
 6. [template-for-education-js](template-for-education-js) - A template application that demonstrates sending educational course offerings, written in Node.js.
 7. [template-for-ecommerce-js](template-for-ecommerce-js) - a template application that demonstrates a communication with customers in a simplified ecommerce usecase, written in Node.JS.
-
+8. [signature-validation-with-webhooks-payloads](signature-validation-with-webhooks-payloads) - a sample app that demonstrates how to validate signature for the WhatsApp Business Platform Webhooks' Payloads.
 
 ## License
 whatsapp-api-examples is Meta Platform Policy licensed, as found in the LICENSE file.
