@@ -26,7 +26,7 @@ def index():
 @app.route('/welcome', methods=['POST'])
 async def welcome():
   data = get_text_message_input(app.config['RECIPIENT_WAID']
-                                , 'Welcome to the Flight Confirmation Demo App for Python!');
+                                , 'Welcome to the Flight Confirmation Demo App for Python!')
   await send_message(data)
   return flask.redirect(flask.url_for('catalog'))
 
