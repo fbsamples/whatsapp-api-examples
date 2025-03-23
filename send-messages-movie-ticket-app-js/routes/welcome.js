@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
   
   sendMessage(data)
     .then(function (response) {
-      res.redirect('/catalog');
+      response.redirect('/catalog');
       return;
     })
     .catch(function (error) {
