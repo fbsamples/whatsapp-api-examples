@@ -10,7 +10,7 @@
     "@aws-sdk/client-lex-runtime-v2": "^3.226.0",
     "aws-serverless-express": "3.4.0",
     "axios": "^1.2.1",
-    "body-parser": "1.20.1",
+    "body-parser": "1.20.6",
     "express": "4.18.2",
     "express-x-hub": "1.0.4",
     "uuid": "9.0.0"
